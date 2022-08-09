@@ -1,0 +1,51 @@
+<div class="text-center">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+</div>
+
+<button class="btn btn-primary btn-sm" *ngIf="!isLoading"
+    (click)="openNewSiteForm(content)">New site</button>
+
+<app-site-item *ngFor="let site of sites" [site]="site"></app-site-item> 
+
+<!-- New Site Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h1 class="modal-title" id="modal-basic-title">New site</h1>
+      <button type="button" class="btn-close" aria-label="Close" 
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form (ngSubmit)="saveNewSite(newSiteForm.value)" #newSiteForm="ngForm">
+        <div class="modal-body">      
+            <div class="mb-3">
+            <label for="siteName">Site name</label>
+            <div class="input-group">
+                <input id="siteName" 
+                    class="form-control"
+                    name="siteName"
+                    #siteName="ngModel"
+                    ngModel
+                    required>
+            </div>
+            <div [hidden]="siteName.valid || siteName.pristine" 
+                class="text-danger my-2">
+                Name is required
+            </div>
+
+            <label for="siteAddress">Site address</label>
+            <div class="input-group">
+                <input id="siteAddress" 
+                    class="form-control"
+                    name="siteAddress"
+                    ngModel>
+            </div>
+        </div>
+      
+        </div>
+            <div class="modal-footer">
+            <button type="submit"
+                    class="btn btn-outline-dark" 
+                    (click)="modal.close('Save click')"
+                    [disabled]="!newSiteForm.form.valid">Save</button>
+        </div>
+    </form>
+  </ng-template>

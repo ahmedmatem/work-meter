@@ -1,0 +1,52 @@
+<div>
+    <i class="bi bi-chevron-left" (click)="close()"></i>&nbsp;<span>Settings</span>
+    <span><i class="bi bi-x-lg float-end" (click)="close()"></i></span>
+</div>
+
+<br/>
+
+<h1>{{worker.name}}</h1>
+
+<h3 class="d-inline">Sites</h3>
+<button type="button"
+        class="btn btn-sm btn-outline-success float-end"
+        [disabled]="!isVisitedSiteListChanged"
+        (click)="save()"><i class="bi bi-gear"></i> Save</button>
+
+<hr/>
+
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<div *ngIf="!isLoading" class="row" cdkDropListGroup>
+    <div class="example-container col-md-6">
+      <h4>In which works</h4>
+  
+      <div
+        cdkDropList
+        [cdkDropListData]="visitedSiteList"
+        class="example-list mb-2"
+        (cdkDropListDropped)="drop($event)">
+        <i *ngIf="visitedSiteList.length === 0" class="m-2">
+            Drag and drop here site from available list.</i>
+        <div class="example-box" *ngFor="let site of visitedSiteList" cdkDrag>
+            {{site.name}}
+        </div>
+      </div>
+    </div>
+  
+    <div class="example-container col-md-6">
+      <h4>Available</h4>
+  
+      <div
+        cdkDropList
+        [cdkDropListData]="availableSiteList"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <i *ngIf="availableSiteList.length === 0" class="m-2">
+          Drag and drop here site to remove it from visited list.</i>
+        <div class="example-box bg-light" *ngFor="let site of availableSiteList" cdkDrag>
+            {{site.name}}
+        </div>
+      </div>
+    </div>
+  </div>

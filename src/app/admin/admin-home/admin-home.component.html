@@ -1,0 +1,24 @@
+<div *ngIf="true">
+  <nav ngbNav #nav="ngbNav" class="nav-tabs mt-1">
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Sites</a>
+        <ng-template ngbNavContent>
+          <app-site-list></app-site-list>
+        </ng-template>
+      </ng-container>
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Workers</a>
+        <ng-template ngbNavContent>
+          <app-worker-list></app-worker-list>
+        </ng-template>
+      </ng-container>
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Three</a>
+        <ng-template ngbNavContent>
+          3
+        </ng-template>
+      </ng-container>
+    </nav>
+    
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

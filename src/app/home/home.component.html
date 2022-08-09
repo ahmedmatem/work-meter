@@ -1,0 +1,10 @@
+
+<div class="container">
+    <h2>Construction sites</h2>
+    <div class="text-center" *ngIf="isLoading">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <mat-card class="mt-2" *ngFor="let site of workerSites">
+        <app-site-item [site]="site"></app-site-item>
+    </mat-card>
+</div>

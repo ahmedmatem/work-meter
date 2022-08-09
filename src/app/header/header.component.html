@@ -1,0 +1,36 @@
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">{{appName}}</a>
+    <button class="navbar-toggler" 
+      type="button" 
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" 
+      aria-controls="navbarSupportedContent" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation"
+      (click)="isCollapsed = !isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse"
+         id="navbarSupportedContent"
+         [ngbCollapse]="isCollapsed"
+         [ngSwitch]="role">
+
+      <app-user-header *ngSwitchCase="'user'"></app-user-header>
+      <app-admin-header *ngSwitchCase="'admin'"></app-admin-header>
+
+      <ul class="navbar-nav w-100 justify-content-end">
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link"
+             routerLinkActive="active"
+             routerLink="/auth">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link"
+             style="cursor: pointer"
+             (click)="onLogout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
