@@ -4,7 +4,8 @@
     <div class="text-center" *ngIf="isLoading">
         <app-loading-spinner></app-loading-spinner>
     </div>
-    <mat-card class="mt-2" *ngFor="let site of workerSites">
+    <!-- <mat-card class="mt-2" *ngFor="let site of workerSites">
         <app-site-item [site]="site"></app-site-item>
-    </mat-card>
+    </mat-card> -->
+    <app-site-item *ngFor="let site of workerSites" [site]="site"></app-site-item>
 </div>

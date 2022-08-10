@@ -25,7 +25,6 @@ export class SiteService {
                     result.push(new Site(key, resData[key].name, resData[key].address))
                 }
                 this._sites = result
-                console.log(this.sites)
                 return this.sites
             })
         )

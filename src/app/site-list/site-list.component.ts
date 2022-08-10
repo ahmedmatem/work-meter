@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core'
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Subscription } from 'rxjs'
 import { Site } from '../models/Site'

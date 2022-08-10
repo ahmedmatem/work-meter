@@ -1,13 +1,5 @@
-<div class="text-center">
-    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
-</div>
+<!-- New Site Modal -->
 
-<!-- <button class="btn btn-primary btn-sm" *ngIf="!isLoading"
-    (click)="openNewSiteForm(content)">New site</button> -->
-
-<app-site-item *ngFor="let site of sites" [site]="site"></app-site-item> 
-
-<!-- New Site Modal
 <ng-template #content let-modal>
     <div class="modal-header">
       <h1 class="modal-title" id="modal-basic-title">New site</h1>
@@ -48,4 +40,4 @@
                     [disabled]="!newSiteForm.form.valid">Save</button>
         </div>
     </form>
-  </ng-template> -->
+</ng-template>

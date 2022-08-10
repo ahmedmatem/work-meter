@@ -24,7 +24,9 @@ import { WorkerSettingsComponent } from './worker-list/worker-settings/worker-se
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { HomeComponent } from './home/home.component'
 import { MatCardModule } from '@angular/material/card';
-import { SiteHistoryComponent } from './site-list/site-history/site-history.component'
+import { SiteHistoryComponent } from './site-list/site-history/site-history.component';
+import { SitesTabComponent } from './admin/admin-home/sites-tab/sites-tab.component';
+import { NewSiteFormComponent } from './new-site-form/new-site-form.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { SiteHistoryComponent } from './site-list/site-history/site-history.comp
     WorkerItemComponent,
     WorkerSettingsComponent,
     HomeComponent,
-    SiteHistoryComponent
+    SiteHistoryComponent,
+    SitesTabComponent,
+    NewSiteFormComponent
   ],
   imports: [
     BrowserModule,
