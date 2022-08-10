@@ -10,13 +10,16 @@ import { WorkerService } from './worker.service'
 })
 export class WorkerListComponent implements OnInit, OnDestroy {
   workers: Worker[] = []
+  role: string
   isListView = true
   isSettingsView = false
   isLoading = false
   onWorkerListChanged = new Subscription()
   selectedWorker: Worker | undefined
 
-  constructor(private workerService: WorkerService) { }
+  constructor(private workerService: WorkerService) {
+    this.role = workerService.role
+  }
 
   ngOnInit(): void {
     this.workers = this.workerService.workers

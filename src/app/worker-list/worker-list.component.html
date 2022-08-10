@@ -6,6 +6,7 @@
     <app-worker-item 
         *ngFor="let worker of workers" 
         [worker]="worker"
+        [role]="role"
         (openSettingsEvent)="openSettings(worker)"></app-worker-item>
 </div>
 

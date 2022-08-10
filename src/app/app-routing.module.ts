@@ -5,6 +5,7 @@ import { AdminComponent } from './admin/admin.component'
 import { AuthComponent } from './auth/auth.component'
 import { AuthGard } from './auth/auth.gard'
 import { HomeComponent } from './home/home.component'
+import { SitesPageComponent } from './home/sites-page/sites-page.component'
 import { Role } from './models/Role'
 
 const routes: Routes = [
@@ -19,8 +20,16 @@ const routes: Routes = [
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGard] },  
+  { path: 'home', redirectTo: '/home/sites', pathMatch: 'full' },
+  { 
+    path: 'home',
+     component: HomeComponent,
+     canActivate: [AuthGard],
+     children: [
+      { path: 'sites', component: SitesPageComponent, canActivate: [AuthGard]}
+     ]
+  },
   // { path: 'dayworks', component: DayworksComponent, canActivate: [AuthGard] },
   // { path: 'workers', component: WorkersComponent, canActivate: [AuthGard] },
   { path: 'auth', component: AuthComponent }

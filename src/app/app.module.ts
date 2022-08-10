@@ -26,7 +26,8 @@ import { HomeComponent } from './home/home.component'
 import { MatCardModule } from '@angular/material/card';
 import { SiteHistoryComponent } from './site-list/site-history/site-history.component';
 import { SitesTabComponent } from './admin/admin-home/sites-tab/sites-tab.component';
-import { NewSiteFormComponent } from './new-site-form/new-site-form.component'
+import { NewSiteFormComponent } from './new-site-form/new-site-form.component';
+import { SitesPageComponent } from './home/sites-page/sites-page.component'
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NewSiteFormComponent } from './new-site-form/new-site-form.component'
     HomeComponent,
     SiteHistoryComponent,
     SitesTabComponent,
-    NewSiteFormComponent
+    NewSiteFormComponent,
+    SitesPageComponent
   ],
   imports: [
     BrowserModule,

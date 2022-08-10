@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import { Worker } from 'src/app/models/Worker'
 
 @Component({
@@ -7,10 +8,11 @@ import { Worker } from 'src/app/models/Worker'
   styleUrls: ['./worker-item.component.css']
 })
 export class WorkerItemComponent implements OnInit {
+  @Input() role!: string
   @Input('worker') worker!: Worker
   @Output() openSettingsEvent = new EventEmitter<Worker>()
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }

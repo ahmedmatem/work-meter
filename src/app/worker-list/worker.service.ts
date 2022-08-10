@@ -2,16 +2,27 @@ import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { forkJoin, map, Observable, Subject } from "rxjs"
 import { environment } from "src/environments/environment"
+import { AuthService } from "../auth/auth.service"
 import { Worker } from "../models/Worker"
 
 @Injectable({providedIn: 'root'})
 export class WorkerService {
     private _workers: Worker[] = []
+    private _role: string
 
-    constructor(private http: HttpClient){ }
+    constructor(
+        private http: HttpClient,
+        authService: AuthService)
+    { 
+        this._role = authService.user.getValue()?.role! 
+    }
 
     get workers() {
         return this._workers.slice()
+    }
+
+    get role() {
+        return this._role
     }
 
     list():Observable<Worker[]>{
