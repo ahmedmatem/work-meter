@@ -23,11 +23,16 @@ import { SiteItemComponent } from './site-list/site-item/site-item.component'
 import { WorkerSettingsComponent } from './worker-list/worker-settings/worker-settings.component'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { HomeComponent } from './home/home.component'
-import { MatCardModule } from '@angular/material/card';
-import { SiteHistoryComponent } from './site-list/site-history/site-history.component';
-import { SitesTabComponent } from './admin/admin-home/sites-tab/sites-tab.component';
-import { NewSiteFormComponent } from './new-site-form/new-site-form.component';
+import { MatCardModule } from '@angular/material/card'
+import { SitesTabComponent } from './admin/admin-home/sites-tab/sites-tab.component'
+import { NewSiteFormComponent } from './new-site-form/new-site-form.component'
 import { SitesPageComponent } from './home/sites-page/sites-page.component'
+import { DaylySummaryPageComponent } from './home/dayly-summary-page/dayly-summary-page.component'
+import { TodaySummaryPageComponent } from './home/today-summary-page/today-summary-page.component'
+import { AddWorkPageComponent } from './home/add-work-page/add-work-page.component'
+import { WorkFormComponent } from './work-form/work-form.component'
+import { CameraComponent } from './camera/camera.component'
+import { WebcamModule } from 'ngx-webcam'
 
 @NgModule({
   declarations: [
@@ -46,10 +51,14 @@ import { SitesPageComponent } from './home/sites-page/sites-page.component'
     WorkerItemComponent,
     WorkerSettingsComponent,
     HomeComponent,
-    SiteHistoryComponent,
     SitesTabComponent,
     NewSiteFormComponent,
-    SitesPageComponent
+    SitesPageComponent,
+    DaylySummaryPageComponent,
+    TodaySummaryPageComponent,
+    AddWorkPageComponent,
+    WorkFormComponent,
+    CameraComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +71,7 @@ import { SitesPageComponent } from './home/sites-page/sites-page.component'
     NgbNavModule,
     NgbCollapseModule,
     DragDropModule,
+    WebcamModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHttpInterceptor, multi: true }

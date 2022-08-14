@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allan&family=Rammetto+One&display=swap");
+body {
+  font-family: "Rammetto One", cursive;
+  text-transform: uppercase;
+  overflow-x: hidden;
+}
+
+h1 {
+  color: #ffffff;
+}
+button {
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  /* border-radius: 2px; */
+  /* height: 2em; */
+  color: #454141;
+  text-transform: uppercase;
+  /* z-index: 1000; */
+}
+/* video styles */
+video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* canvas styles */
+canvas {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    align-self: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+  }
+
+  .header {
+    position:absolute;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* text-align: center; */
+    /* left:50%; */
+    top:0px;
+    padding: 10px;
+    z-index: 1000;
+  }
+
+  .header > button {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(0, 0, 0, 0);
+    /* color: white; */
+    /* opacity: 0.2; */
+  }
+
+/* .header {
+  position: relative;
+  height: 100vh;
+  text-align: center;
+  justify-content: center;
+  z-index: 1001;
+} */
+
+/* In case you want to disable the video 
+@media screen and (max-width: 400px) {
+  html {
+    background: url("https://images.unsplash.com/photo-1620222071550-a5c7f8b600ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyMDY4NDIyNA&ixlib=rb-1.2.1&q=80&w=400");
+    background-size: cover;
+  }
+  .video-container {
+    display: none;
+  }
+}*/
+
+.btn-bot{
+    position:absolute; 
+    margin-left:-30px;
+    left:50%;
+    bottom:30px;
+    z-index: 1000;
+ }
+
+ .controls {
+  position:absolute;
+  width: 100%;
+  text-align: center;
+  /* left:50%; */
+  bottom:30px;
+  z-index: 1001;
+ }

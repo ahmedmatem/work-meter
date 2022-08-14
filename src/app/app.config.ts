@@ -11,3 +11,5 @@ export const SIGN_IN_ENDPOINT = `https://identitytoolkit.googleapis.com/v1/accou
 export const KEY_WORKERS_IDS: string = "workers_ids"
 
 export const DB_URL = 'https://daywork-manager-default-rtdb.europe-west1.firebasedatabase.app/'
+
+export const mediaSupported = 'mediaDevices' in navigator

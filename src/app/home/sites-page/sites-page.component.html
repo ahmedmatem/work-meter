@@ -1,9 +1,10 @@
-<div class="container">
-    <h2>Construction sites</h2>
+<h2>Construction sites</h2>
     
-    <div class="text-center" *ngIf="isLoading">
-        <app-loading-spinner></app-loading-spinner>
-    </div>
-    
-    <app-site-item *ngFor="let site of workerSites" [site]="site"></app-site-item>
+<div class="text-center" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
 </div>
+
+<app-site-item 
+    *ngFor="let site of workerSites" 
+    [site]="site"
+    (click)="showDaylySummaryFor(site)"></app-site-item>

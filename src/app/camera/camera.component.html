@@ -1,0 +1,22 @@
+<video #player *ngIf="!isCaptured"
+    autoplay></video>
+
+<div class="header">
+    <button (click)="back()">
+        <i class="bi bi-chevron-left text-white"></i>
+    </button>
+    <button class="float-end"><i class="bi bi-x-lg text-light"></i></button>
+</div>
+
+<div class="controls" *ngIf="isCaptured">
+    <button class="me-1 bg-success"><i class="bi bi-check-lg text-white"></i></button>
+    <!-- <button><i class="bi bi-arrow-repeat"></i></button> -->
+</div>
+
+<button class="btn-bot" *ngIf="!isCaptured" (click)="capture()">
+    <i class="bi bi-square-fill"></i>
+</button>
+
+<canvas #canvas width="640" height="480"
+    [ngClass]="{'d-none': !isCaptured, 'show': isCaptured}">Canvas</canvas>
+  

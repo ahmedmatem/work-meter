@@ -1,0 +1,49 @@
+<form>
+    <!-- Date -->
+    <div class="form-group">
+        <label class="text-muted" for="date">Date</label>
+        <div class="fs-5">{{model.date | date: 'EEE, dd MMM yyyy'}}</div>
+    </div>
+
+    <!-- Location -->
+    <div class="form-group mt-3">
+        <label class="text-muted" for="location">Location</label>
+        <input class="form-control fs-5" 
+            type="text" 
+            id="location"
+            name="location"
+            [(ngModel)]="model.location">
+    </div>
+
+    <!-- Size -->
+    <div class="form group mt-3">
+        <label class="text-muted d-block" for="size-width">Size [mm]</label>
+        <div class="row">
+            <div class="col-6">
+                <input type="number" 
+                    id="size-width"
+                    name="width"
+                    [(ngModel)]="model.size.width"
+                    class="form-control fs-5">
+            </div>
+            <div class="col-6">
+                <input type="number" 
+                    id="size-height"
+                    name="height"
+                    [(ngModel)]="model.size.height"
+                    class="form-control fs-5">
+            </div>
+        </div>
+    </div>
+
+    <!-- Images -->
+    <div class="form-group mt-3">
+        <label for="images" class="text-muted">Images</label>
+    </div>
+    <div>
+        <div class="btn btn-outline-primary" (click)="openCamera()">
+            <i class="bi bi-camera-fill"></i>
+        </div>
+    </div>
+
+</form>

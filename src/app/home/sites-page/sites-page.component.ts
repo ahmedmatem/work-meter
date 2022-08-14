@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { AuthService } from 'src/app/auth/auth.service'
 import { Site } from 'src/app/models/Site'
+import { SiteService } from 'src/app/site-list/site.service'
 import { SitesPageService } from './sites-page.service'
 
 @Component({
@@ -10,7 +12,6 @@ import { SitesPageService } from './sites-page.service'
   styleUrls: ['./sites-page.component.css']
 })
 export class SitesPageComponent implements OnInit {
-
   workerSites: Site[] = []
   isLoading = false
 
@@ -18,9 +19,11 @@ export class SitesPageComponent implements OnInit {
   private listWorkerSitesSub = new Subscription()
 
   constructor(
-    private authService: AuthService,
+    authService: AuthService,
+    private router: Router,
+    private siteService: SiteService,
     private sitesPageService: SitesPageService) { 
-      this.workerId = this.authService.user.getValue()?.id!
+      this.workerId = authService.user.getValue()?.id!
     }
 
   ngOnInit(): void {
@@ -30,6 +33,11 @@ export class SitesPageComponent implements OnInit {
       this.isLoading = false
       this.workerSites = workerSites
     })
+  }
+
+  showDaylySummaryFor(site: Site){
+    this.siteService.selectedSite.next(site)
+    this.router.navigate(['home/dayly-summary'])
   }
 
   ngOnDestroy(): void {

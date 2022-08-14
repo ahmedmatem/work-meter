@@ -1,11 +1,12 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { map, Observable, Subject } from "rxjs";
-import { environment } from "src/environments/environment";
-import { Site } from "../models/Site";
+import { HttpClient } from "@angular/common/http"
+import { Injectable } from "@angular/core"
+import { BehaviorSubject, map, Observable, Subject } from "rxjs"
+import { environment } from "src/environments/environment"
+import { Site } from "../models/Site"
 
 @Injectable({ providedIn: 'root'})
 export class SiteService {
+    selectedSite = new BehaviorSubject<Site|null>(null)
     private _sites: Site[] = []
 
     get sites() {
