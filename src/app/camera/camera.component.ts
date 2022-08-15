@@ -44,6 +44,10 @@ export class CameraComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate(['home/add-work'])
     }
   }
+
+  cancel(){
+    this.router.navigate(['home/add-work'])
+  }
   
   ngOnDestroy(): void {
     // Stop all video streams. 
@@ -65,9 +69,11 @@ export class CameraComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private stopVideo(){
     // Stop all video streams. 
-    const videoTracks = this.player.nativeElement.srcObject.getVideoTracks() as Array<MediaStreamTrack>
-    videoTracks.forEach((track) => {
-      track.stop()
-    })
+    if(this.player){
+      const videoTracks = this.player.nativeElement.srcObject.getVideoTracks() as Array<MediaStreamTrack>
+      videoTracks.forEach((track) => {
+        track.stop()
+      })
+    }
   }
 }
