@@ -12,7 +12,7 @@ import { AdminComponent } from './admin/admin.component'
 import { HeaderComponent } from './header/header.component'
 import { AdminHeaderComponent } from './admin/admin-header/admin-header.component'
 import { UserHeaderComponent } from './header/user-header/user-header.component'
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component'
 import { SiteListComponent } from './site-list/site-list.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -33,6 +33,9 @@ import { AddWorkPageComponent } from './home/add-work-page/add-work-page.compone
 import { WorkFormComponent } from './work-form/work-form.component'
 import { CameraComponent } from './camera/camera.component'
 import { WebcamModule } from 'ngx-webcam'
+import { AuthService } from './auth/auth.service'
+import { SiteLocalStorage } from './data/site/site.local-storage'
+import { SiteRemoteStorage } from './data/site/site.remote-storage'
 
 @NgModule({
   declarations: [
@@ -74,7 +77,19 @@ import { WebcamModule } from 'ngx-webcam'
     WebcamModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHttpInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHttpInterceptor, multi: true },
+    { provide: 'SITE_LOCAL_STORAGE', 
+      useFactory: (authService: AuthService) => {
+        return new SiteLocalStorage(authService)
+      },
+      deps: [AuthService]
+    },
+    { provide: 'SITE_REMOTE_STORAGE', 
+      useFactory: (authService: AuthService, http: HttpClient) => {
+        return new SiteRemoteStorage(authService, http)
+      },
+      deps: [AuthService, HttpClient]
+  }
   ],
   bootstrap: [AppComponent],
 })

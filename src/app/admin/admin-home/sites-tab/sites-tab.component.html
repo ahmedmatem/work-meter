@@ -2,6 +2,10 @@
     New site
 </button>
 
-<app-site-list></app-site-list>
+<div class="text-center">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+</div>
+
+<app-site-list [sites]="sites"></app-site-list>
 
 <app-new-site-form #form></app-new-site-form>

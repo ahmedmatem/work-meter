@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { SiteRepository } from 'src/app/data/site/site-repository'
+import { Site } from 'src/app/models/Site'
 
 @Component({
   selector: 'app-sites-tab',
@@ -7,8 +9,14 @@ import { Component, OnInit } from '@angular/core'
 })
 export class SitesTabComponent implements OnInit {
   isLoading: boolean = true
+  sites: Site[] = []
 
-  constructor() { }
+  constructor(private siteRepo: SiteRepository) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.siteRepo.getAll().subscribe((sites) => {
+      this.isLoading = false
+      this.sites = sites
+    })
+  }
 }
