@@ -9,7 +9,9 @@ import { SiteRemoteStorage } from "./site.remote-storage"
 })
 export class SiteRepository {
     private _sites: Site[] = []
-    private onSitesLoaded = new Subject<Site[]>()
+
+    onSiteListChanged = new Subject<Site[]>()
+    onSiteCreated = new Subject<Site>()
 
     get sites() {
         return this._sites.slice()
@@ -17,34 +19,26 @@ export class SiteRepository {
 
     constructor (
         @Inject('SITE_LOCAL_STORAGE') private localStorage: SiteLocalStorage,
-        @Inject('SITE_REMOTE_STORAGE') private remoteStorage: SiteRemoteStorage
-    ){
-        this.init()
-    }
+        @Inject('SITE_REMOTE_STORAGE') private remoteStorage: SiteRemoteStorage) { }
 
-    private init() {
+    downloadSites(){
         this.remoteStorage.getAll().subscribe({
             next: (remoteSites) => {
                 this._sites = remoteSites
-                // Save sites in local storage
+                // Trigger onSiteListChanged event
+                this.onSiteListChanged.next(this.sites)
+                // Add sites in local storage if required
                 this.localStorage.add(...this._sites)              
-            },
-            error: (err) => {
-                // Try to get all from local storage
-                this._sites = this.localStorage.getAll()
-            },
-            complete: () => {
-                this.onSitesLoaded.next(this.sites)
             }
         })
     }
 
-    getAll(): Subject<Site[]>{
-        return this.onSitesLoaded
-    }
-
-    add(...sites: Site[]) {
-        this.localStorage.add(...sites)
-        this.remoteStorage.add(...sites)
+    create(site: Site) {
+        this.remoteStorage.add(site).subscribe((resData) => {
+            // Set id of newly created site by id received from response
+            site.id = resData[0].id
+            this.onSiteCreated.next(site)           
+            this.localStorage.add(site)
+        })
     }
 }

@@ -45,12 +45,5 @@ export class SiteRemoteStorage {
             sources.push(source)
         })
         return forkJoin(sources)
-        // this.http.put<{id:string}>(environment.apiBaseUrl + '/sites/add', site)
-
-        // .subscribe(resData => {
-        //     site.id = resData.id
-        //     this._sites.push(site)
-        //     // this.onSitesListChanged.next(this.sites)
-        // })
     }
 }

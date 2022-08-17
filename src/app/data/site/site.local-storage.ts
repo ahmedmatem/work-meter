@@ -13,13 +13,32 @@ export class SiteLocalStorage {
             JSON.parse(localStorage.getItem(this.key)!) : []
     }
 
+    /**
+     * Add site/s in local storage if required - 
+     * skip those that already exist in the storage.
+     * @param sites
+     */
     add(...sites: Site[]){
         const storedSites: Site[] = this.getAll()
-
-        sites.forEach((site) => {
-            storedSites.push(site)
+        
+        // Filter sites that are not exist in local storage
+        const filteredSites = sites.filter((site) => {
+            let exists = false
+            storedSites.forEach(ss => {
+                if(ss.id === site.id){
+                    exists = true
+                }
+            })
+            return !exists
         })
 
+        // Add filtered sides to list of already stored sites
+        filteredSites.forEach((fs) => {
+            storedSites.push(fs)
+        })
+
+        // Update stored sites with new sites included
         localStorage.setItem(this.key, JSON.stringify(storedSites))
     }
+
 }

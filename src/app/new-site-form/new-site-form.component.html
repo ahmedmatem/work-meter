@@ -6,7 +6,7 @@
       <button type="button" class="btn-close" aria-label="Close" 
             (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <form (ngSubmit)="saveNewSite(newSiteForm.value)" #newSiteForm="ngForm">
+    <form (ngSubmit)="create(newSiteForm.value)" #newSiteForm="ngForm">
         <div class="modal-body">      
             <div class="mb-3">
             <label for="siteName">Site name</label>

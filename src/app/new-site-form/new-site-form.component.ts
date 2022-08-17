@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { SiteRepository } from '../data/site/site-repository'
 import { Site } from '../models/Site'
 import { SiteService } from '../site-list/site.service'
 
@@ -13,15 +14,17 @@ export class NewSiteFormComponent implements OnInit {
   @ViewChild('content') content!: TemplateRef<any>
 
   constructor(
-    private siteService: SiteService,
+    // private siteService: SiteService,
+    private siteRepo: SiteRepository,
     private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
 
-  saveNewSite(formData: any){
+  create(formData: any){
     const site: Site = new Site(null, formData.siteName, formData.siteAddress)
-    this.siteService.save(site)
+    // this.siteService.save(site)
+    this.siteRepo.create(site)
   }
 
   open(){
