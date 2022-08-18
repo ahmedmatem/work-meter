@@ -9,14 +9,14 @@ import { Site } from 'src/app/models/Site'
   styleUrls: ['./sites-tab.component.css']
 })
 export class SitesTabComponent implements OnInit, OnDestroy {
-  isLoading: boolean = true
+  isLoading: boolean = false
   sites: Site[] = []
   private siteListChangedSub = new Subscription()
   private siteCreatedSub = new Subscription()
 
   constructor(private siteRepo: SiteRepository) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     // Subscribe on onSiteListChanged event 
     this.siteListChangedSub = this.siteRepo.onSiteListChanged.subscribe((sites) => {
       this.isLoading = false
@@ -30,8 +30,14 @@ export class SitesTabComponent implements OnInit, OnDestroy {
         this.sites.push(site)
       }
     )
-
-    this.siteRepo.downloadSites()
+    
+    // Load Sites from memmory
+    this.sites = this.siteRepo.sites
+    if(this.sites.length === 0){
+      // Load Sites from remote
+      this.isLoading = true
+      this.siteRepo.downloadSites()
+    }
   }
   
   ngOnDestroy(): void {
