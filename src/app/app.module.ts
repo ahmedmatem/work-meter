@@ -18,7 +18,6 @@ import { SiteListComponent } from './site-list/site-list.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AuthTokenHttpInterceptor } from './auth/auth-token.interceptor'
 import { WorkerListComponent } from './worker-list/worker-list.component'
-import { WorkerItemComponent } from './worker-list/worker-item/worker-item.component'
 import { SiteItemComponent } from './site-list/site-item/site-item.component'
 import { WorkerSettingsComponent } from './worker-list/worker-settings/worker-settings.component'
 import { DragDropModule } from '@angular/cdk/drag-drop'
@@ -37,8 +36,8 @@ import { AuthService } from './auth/auth.service'
 import { SiteLocalStorage } from './data/site/site.local-storage'
 import { SiteRemoteStorage } from './data/site/site.remote-storage'
 import { WorkersTabComponent } from './admin/admin-home/workers-tab/workers-tab.component'
-import { WorkerLocalStorage } from './data/worker/worker.local-storage'
 import { WorkerRemoteStorage } from './data/worker/worker.remote-storage'
+import { WorkerListItemComponent } from './worker-list/worker-list-item/worker-list-item.component'
 
 @NgModule({
   declarations: [
@@ -54,7 +53,7 @@ import { WorkerRemoteStorage } from './data/worker/worker.remote-storage'
     SiteListComponent,
     SiteItemComponent,
     WorkerListComponent,
-    WorkerItemComponent,
+    WorkerListItemComponent,
     WorkerSettingsComponent,
     HomeComponent,
     SitesTabComponent,
