@@ -36,6 +36,9 @@ import { WebcamModule } from 'ngx-webcam'
 import { AuthService } from './auth/auth.service'
 import { SiteLocalStorage } from './data/site/site.local-storage'
 import { SiteRemoteStorage } from './data/site/site.remote-storage'
+import { WorkersTabComponent } from './admin/admin-home/workers-tab/workers-tab.component'
+import { WorkerLocalStorage } from './data/worker/worker.local-storage'
+import { WorkerRemoteStorage } from './data/worker/worker.remote-storage'
 
 @NgModule({
   declarations: [
@@ -61,7 +64,8 @@ import { SiteRemoteStorage } from './data/site/site.remote-storage'
     TodaySummaryPageComponent,
     AddWorkPageComponent,
     WorkFormComponent,
-    CameraComponent
+    CameraComponent,
+    WorkersTabComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,13 @@ import { SiteRemoteStorage } from './data/site/site.remote-storage'
         return new SiteRemoteStorage(authService, http)
       },
       deps: [AuthService, HttpClient]
-  }
+    },
+    { provide: 'WORKER_REMOTE_STORAGE', 
+      useFactory: (http: HttpClient) => {
+        return new WorkerRemoteStorage(http)
+      },
+      deps: [HttpClient]
+    }
   ],
   bootstrap: [AppComponent],
 })

@@ -5,13 +5,6 @@ import { Site } from "src/app/models/Site"
 import { environment } from "src/environments/environment"
 
 export class SiteRemoteStorage {
-    // onSitesListChanged = new Subject<Site[]>()
-
-    // private _sites: Site[] = []
-
-    // get sites() {
-    //     return this._sites.slice()
-    // }
 
     private _url: string
 

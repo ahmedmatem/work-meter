@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core'
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { Worker } from '../models/Worker'
 import { WorkerService } from './worker.service'
@@ -9,7 +9,7 @@ import { WorkerService } from './worker.service'
   styleUrls: ['./worker-list.component.css']
 })
 export class WorkerListComponent implements OnInit, OnDestroy {
-  workers: Worker[] = []
+  @Input('workers') workers: Worker[] = []
   role: string
   isListView = true
   isSettingsView = false
@@ -22,17 +22,17 @@ export class WorkerListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.workers = this.workerService.workers
-    if(this.workers.length === 0){
-      this.isLoading = true
-      this.onWorkerListChanged = this.workerService.list()
-      .subscribe({
-        next: (workers) => {
-          this.workers = workers
-          this.isLoading = false
-        }
-      })
-    }
+    // this.workers = this.workerService.workers
+    // if(this.workers.length === 0){
+    //   this.isLoading = true
+    //   this.onWorkerListChanged = this.workerService.list()
+    //   .subscribe({
+    //     next: (workers) => {
+    //       this.workers = workers
+    //       this.isLoading = false
+    //     }
+    //   })
+    // }
   }
 
   openSettings(worker: Worker){
