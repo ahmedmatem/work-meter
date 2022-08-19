@@ -1,1 +1,17 @@
-<app-worker-list [workers]="workers"></app-worker-list>
+<div *ngIf="isPageList">
+    <div *ngFor="let worker of workers">
+        <div class="col-xs-12 mt-2">
+            {{worker.name}}
+            <span class="float-end">
+                <i class="bi bi-gear" (click)="settings(worker)"></i>
+            </span>
+            
+        </div> 
+    </div>
+</div>
+
+<div *ngIf="isPageSettings">
+    <app-worker-settings 
+        [worker]="selectedWorker!"
+        (closeEvent)="closeSettings()"></app-worker-settings>
+</div>

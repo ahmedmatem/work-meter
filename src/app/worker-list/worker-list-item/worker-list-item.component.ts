@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Worker } from 'src/app/models/Worker'
 
 @Component({
-  selector: 'app-worker-item',
+  selector: 'app-worker-list-item',
   templateUrl: './worker-list-item.component.html',
   styleUrls: ['./worker-list-item.component.css']
 })

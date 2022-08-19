@@ -9,16 +9,16 @@ import { WorkerService } from './worker.service'
   styleUrls: ['./worker-list.component.css']
 })
 export class WorkerListComponent implements OnInit, OnDestroy {
-  @Input('workers') workers: Worker[] = []
-  role: string
-  isListView = true
-  isSettingsView = false
-  isLoading = false
-  onWorkerListChanged = new Subscription()
-  selectedWorker: Worker | undefined
+  // @Input('workers') workers: Worker[] = []
+  // role: string
+  // isListView = true
+  // isSettingsView = false
+  // isLoading = false
+  // onWorkerListChanged = new Subscription()
+  // selectedWorker: Worker | undefined
 
   constructor(private workerService: WorkerService) {
-    this.role = workerService.role
+    // this.role = workerService.role
   }
 
   ngOnInit(): void {
@@ -35,18 +35,18 @@ export class WorkerListComponent implements OnInit, OnDestroy {
     // }
   }
 
-  openSettings(worker: Worker){
-    this.isListView = false
-    this.isSettingsView = true
-    this.selectedWorker = worker
-  }
+  // openSettings(worker: Worker){
+  //   this.isListView = false
+  //   this.isSettingsView = true
+  //   this.selectedWorker = worker
+  // }
 
-  closeSettings(){
-    this.isSettingsView = false
-    this.isListView = true
-  }
+  // closeSettings(){
+  //   this.isSettingsView = false
+  //   this.isListView = true
+  // }
 
   ngOnDestroy(): void {
-    this.onWorkerListChanged.unsubscribe()
+    // this.onWorkerListChanged.unsubscribe()
   }
 }

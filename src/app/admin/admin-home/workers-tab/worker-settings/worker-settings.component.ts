@@ -4,7 +4,7 @@ import { forkJoin, Subscription } from 'rxjs'
 import { Site } from 'src/app/models/Site'
 import { Worker } from 'src/app/models/Worker'
 import { SiteService } from 'src/app/site-list/site.service'
-import { WorkerService } from '../worker.service'
+import { WorkerService } from '../../../../worker-list/worker.service'
 
 @Component({
   selector: 'app-worker-settings',
