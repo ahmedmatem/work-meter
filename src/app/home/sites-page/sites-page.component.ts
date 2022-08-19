@@ -28,11 +28,11 @@ export class SitesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true
-    this.listWorkerSitesSub = this.sitesPageService.listSitesByWorker(this.workerId)
-    .subscribe(workerSites => {
-      this.isLoading = false
-      this.workerSites = workerSites
-    })
+    // this.listWorkerSitesSub = this.sitesPageService.listSitesByWorker(this.workerId)
+    // .subscribe(workerSites => {
+    //   this.isLoading = false
+    //   this.workerSites = workerSites
+    // })
   }
 
   showDaylySummaryFor(site: Site){

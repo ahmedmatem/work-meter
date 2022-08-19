@@ -4,7 +4,6 @@ import { forkJoin, Subscription } from 'rxjs'
 import { Site } from 'src/app/models/Site'
 import { Worker } from 'src/app/models/Worker'
 import { SiteService } from 'src/app/site-list/site.service'
-import { WorkerService } from '../../../../worker-list/worker.service'
 
 @Component({
   selector: 'app-worker-settings',
@@ -28,7 +27,7 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     private siteService: SiteService,
-    private workerService: WorkerService
+    // private workerService: WorkerService
   ) { }
 
   ngOnInit(): void {    
@@ -46,7 +45,7 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     //   })
     // }
 
-    this.separateSites()
+    // this.separateSites()
     
   }
 
@@ -55,12 +54,12 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     const visitedSiteIds = this.visitedSiteList.map(site => {
       return site.id!
     })
-    this.workerService.setSitesByWorker(this.worker.id, visitedSiteIds)
-    .subscribe({
-      complete: () => {
-        // console.log('Worker site ids was saved successfully.')
-      }
-    })
+    // this.workerService.setSitesByWorker(this.worker.id, visitedSiteIds)
+    // .subscribe({
+    //   complete: () => {
+    //     // console.log('Worker site ids was saved successfully.')
+    //   }
+    // })
   }
 
   close(){
@@ -81,36 +80,36 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private separateSites(){
-    this.isLoading = true
-    forkJoin([
-      this.siteService.list(), // request all sites
-      this.workerService.getSitesByWorker(this.worker.id) // request worker site's ids
-    ]).subscribe({
-      next: (resData) => {
-        const allSites = resData[0]
-        const workerSiteIds = resData[1]
-        if(allSites){
-          if(workerSiteIds){
-            this.availableSiteList = allSites.filter(site => {
-              return !workerSiteIds.includes(site.id!)
-            })
-            this.visitedSiteList = allSites.filter(site => {
-              return workerSiteIds.includes(site.id!)
-            })
-          } else {
-            this.availableSiteList = allSites
-          }
-        }
-      },
-      complete: () => {
-        this.isLoading = false
-      }
-    })
-  }
+  // private separateSites(){
+  //   this.isLoading = true
+  //   forkJoin([
+  //     this.siteService.list(), // request all sites
+  //     this.workerService.getSitesByWorker(this.worker.id) // request worker site's ids
+  //   ]).subscribe({
+  //     next: (resData) => {
+  //       const allSites = resData[0]
+  //       const workerSiteIds = resData[1]
+  //       if(allSites){
+  //         if(workerSiteIds){
+  //           this.availableSiteList = allSites.filter(site => {
+  //             return !workerSiteIds.includes(site.id!)
+  //           })
+  //           this.visitedSiteList = allSites.filter(site => {
+  //             return workerSiteIds.includes(site.id!)
+  //           })
+  //         } else {
+  //           this.availableSiteList = allSites
+  //         }
+  //       }
+  //     },
+  //     complete: () => {
+  //       this.isLoading = false
+  //     }
+  //   })
+  // }
 
   ngOnDestroy(): void {
-    this.allSitesSub.unsubscribe()
-    this.workerSitesSub.unsubscribe
+    // this.allSitesSub.unsubscribe()
+    // this.workerSitesSub.unsubscribe
   }
 }

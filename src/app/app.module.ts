@@ -35,9 +35,7 @@ import { SiteLocalStorage } from './data/site/site.local-storage'
 import { SiteRemoteStorage } from './data/site/site.remote-storage'
 import { WorkersTabComponent } from './admin/admin-home/workers-tab/workers-tab.component'
 import { WorkerRemoteStorage } from './data/worker/worker.remote-storage'
-import { WorkerListItemComponent } from './worker-list/worker-list-item/worker-list-item.component'
 import { WorkerSettingsComponent } from './admin/admin-home/workers-tab/worker-settings/worker-settings.component'
-import { WorkerListComponent } from './worker-list/worker-list.component'
 
 @NgModule({
   declarations: [
@@ -52,7 +50,6 @@ import { WorkerListComponent } from './worker-list/worker-list.component'
     AdminHomeComponent,
     SiteListComponent,
     SiteItemComponent,
-    WorkerListComponent,
     WorkerSettingsComponent,
     HomeComponent,
     SitesTabComponent,
