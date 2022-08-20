@@ -17,7 +17,6 @@ export class WorkerRepository {
 
     constructor(
         private localStorage: WorkerLocalStorage,
-        @Inject('WORKER_REMOTE_STORAGE') 
         private remoteStorage: WorkerRemoteStorage ){}
 
     downloadWorkers(){

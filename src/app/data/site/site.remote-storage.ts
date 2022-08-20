@@ -1,25 +1,19 @@
 import { HttpClient } from "@angular/common/http"
+import { Injectable } from "@angular/core"
 import { forkJoin, map, Observable } from "rxjs"
-import { AuthService } from "src/app/auth/auth.service"
 import { Site } from "src/app/models/Site"
 import { environment } from "src/environments/environment"
 
+@Injectable({providedIn: 'root'})
 export class SiteRemoteStorage {
 
-    private _url: string
-
     constructor(
-        authService: AuthService, 
         private http: HttpClient
-    ){
-        const user = authService.user.value
-        this._url = user?.role === 'user' ?
-            environment.apiBaseUrl + '/sites/byWorker/' + user.id :
-            environment.apiBaseUrl + '/sites'
-    }
+    ){ }
 
     getAll(): Observable<Site[]>{
-        return this.http.get<any>(this._url)
+        const url =  environment.apiBaseUrl + '/sites'
+        return this.http.get<any>(url)
         .pipe(
             map(resData => {
                 const sites: Site[] = []
@@ -29,6 +23,17 @@ export class SiteRemoteStorage {
                 return sites
             })
         )
+    }
+
+    getWorkerSites(workerId: string): Observable<string[]>{
+        const url =  environment.apiBaseUrl + `/workers/${workerId}/sites`
+        return this.http.get<string[]>(url)
+    }
+
+    setWorkerSites(id: string, sites: string[]) {
+        const url =  environment.apiBaseUrl + `/workers/${id}/sites`
+        const body = {sites: sites}
+        return this.http.post(url, body)
     }
 
     add(...sites: Site[]): Observable<{id: string}[]>{

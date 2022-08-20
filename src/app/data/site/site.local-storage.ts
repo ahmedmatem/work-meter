@@ -1,6 +1,8 @@
+import { Injectable } from "@angular/core"
 import { AuthService } from "src/app/auth/auth.service"
 import { Site } from "src/app/models/Site"
 
+@Injectable({providedIn: 'root'})
 export class SiteLocalStorage {
     private key: string
 

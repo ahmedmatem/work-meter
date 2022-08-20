@@ -1,9 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { forkJoin, Subscription } from 'rxjs'
+import { SiteRepository } from 'src/app/data/site/site-repository'
 import { Site } from 'src/app/models/Site'
 import { Worker } from 'src/app/models/Worker'
-import { SiteService } from 'src/app/site-list/site.service'
 
 @Component({
   selector: 'app-worker-settings',
@@ -22,17 +22,15 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
   availableSiteList: Site[] = []
   isLoading = false
   
-  private allSitesSub = new Subscription()
-  private workerSitesSub = new Subscription()
+  private forkSitesSub = new Subscription()
 
   constructor(
-    private siteService: SiteService,
-    // private workerService: WorkerService
+    private siteRepo: SiteRepository
   ) { }
 
   ngOnInit(): void {    
-    // if(this.siteService.sites.length > 0){
-    //   this.separateSites(this.siteService.sites)
+    // if(this.siteRepo.sites.length > 0){
+    //   this.separateSites(this.siteRepo.sites)
     // } else {
     //   this.allSitesSub = this.siteService.list()
     //   .subscribe({
@@ -45,7 +43,19 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     //   })
     // }
 
-    // this.separateSites()
+    // if(this.siteRepo.sites.length === 0){
+    //   this.allSitesSub = this.siteService.list()
+    //   .subscribe({
+    //     next: (allSites) => {
+    //       this.workerSitesSub = this.siteRepo.downloadWorkerSites(this.worker.id)
+    //       .subscribe(siteIds => {
+    //         this.separateSites(allSites, siteIds)
+    //       })
+    //     }
+    //   })
+    // }
+
+    this.separateSites()
     
   }
 
@@ -54,12 +64,12 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     const visitedSiteIds = this.visitedSiteList.map(site => {
       return site.id!
     })
-    // this.workerService.setSitesByWorker(this.worker.id, visitedSiteIds)
-    // .subscribe({
-    //   complete: () => {
-    //     // console.log('Worker site ids was saved successfully.')
-    //   }
-    // })
+    this.siteRepo.setWorkerSites(this.worker.id, visitedSiteIds)
+    .subscribe({
+      complete: () => {
+        console.log('Worker sites was saved successfully.')
+      }
+    })
   }
 
   close(){
@@ -80,36 +90,35 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // private separateSites(){
-  //   this.isLoading = true
-  //   forkJoin([
-  //     this.siteService.list(), // request all sites
-  //     this.workerService.getSitesByWorker(this.worker.id) // request worker site's ids
-  //   ]).subscribe({
-  //     next: (resData) => {
-  //       const allSites = resData[0]
-  //       const workerSiteIds = resData[1]
-  //       if(allSites){
-  //         if(workerSiteIds){
-  //           this.availableSiteList = allSites.filter(site => {
-  //             return !workerSiteIds.includes(site.id!)
-  //           })
-  //           this.visitedSiteList = allSites.filter(site => {
-  //             return workerSiteIds.includes(site.id!)
-  //           })
-  //         } else {
-  //           this.availableSiteList = allSites
-  //         }
-  //       }
-  //     },
-  //     complete: () => {
-  //       this.isLoading = false
-  //     }
-  //   })
-  // }
+  private separateSites(){
+    this.isLoading = true
+    this.forkSitesSub = forkJoin([
+      this.siteRepo.downloadSitesAsObservable(), // request all sites
+      this.siteRepo.downloadWorkerSitesAsObservable(this.worker.id) // request worker site's ids
+    ]).subscribe({
+      next: (resData) => {
+        const allSites = resData[0]
+        const workerSiteIds = resData[1]
+        if(allSites){
+          if(workerSiteIds){
+            this.availableSiteList = allSites.filter(site => {
+              return !workerSiteIds.includes(site.id!)
+            })
+            this.visitedSiteList = allSites.filter(site => {
+              return workerSiteIds.includes(site.id!)
+            })
+          } else {
+            this.availableSiteList = allSites
+          }
+        }
+      },
+      complete: () => {
+        this.isLoading = false
+      }
+    })
+  }
 
   ngOnDestroy(): void {
-    // this.allSitesSub.unsubscribe()
-    // this.workerSitesSub.unsubscribe
+    this.forkSitesSub.unsubscribe()
   }
 }

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core"
-import { Subject } from "rxjs"
+import { Observable, Subject } from "rxjs"
 import { Site } from "src/app/models/Site"
 import { SiteLocalStorage } from "./site.local-storage"
 import { SiteRemoteStorage } from "./site.remote-storage"
@@ -18,8 +18,12 @@ export class SiteRepository {
     }
 
     constructor (
-        @Inject('SITE_LOCAL_STORAGE') private localStorage: SiteLocalStorage,
-        @Inject('SITE_REMOTE_STORAGE') private remoteStorage: SiteRemoteStorage) { }
+        private localStorage: SiteLocalStorage,
+        private remoteStorage: SiteRemoteStorage) { }
+
+    downloadSitesAsObservable(): Observable<Site[]> {
+        return this.remoteStorage.getAll()
+    }
 
     downloadSites(){
         this.remoteStorage.getAll().subscribe({
@@ -31,6 +35,23 @@ export class SiteRepository {
                 this.localStorage.add(...this._sites)              
             }
         })
+    }
+
+    downloadWorkerSitesAsObservable(id: string): Observable<string[]>{
+        return this.remoteStorage.getWorkerSites(id)
+    }
+
+    downloadWorkerSites(id: string){
+        this.remoteStorage.getWorkerSites(id).subscribe({
+            next: (ids => {
+                console.log('Print ids:')
+                console.log(ids)
+            })
+        })
+    }
+
+    setWorkerSites(id: string, sites: string[]){
+        return this.remoteStorage.setWorkerSites(id, sites)
     }
 
     create(site: Site) {

@@ -77,24 +77,24 @@ import { WorkerSettingsComponent } from './admin/admin-home/workers-tab/worker-s
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHttpInterceptor, multi: true },
-    { provide: 'SITE_LOCAL_STORAGE', 
-      useFactory: (authService: AuthService) => {
-        return new SiteLocalStorage(authService)
-      },
-      deps: [AuthService]
-    },
-    { provide: 'SITE_REMOTE_STORAGE', 
-      useFactory: (authService: AuthService, http: HttpClient) => {
-        return new SiteRemoteStorage(authService, http)
-      },
-      deps: [AuthService, HttpClient]
-    },
-    { provide: 'WORKER_REMOTE_STORAGE', 
-      useFactory: (http: HttpClient) => {
-        return new WorkerRemoteStorage(http)
-      },
-      deps: [HttpClient]
-    }
+    // { provide: 'SITE_LOCAL_STORAGE', 
+    //   useFactory: (authService: AuthService) => {
+    //     return new SiteLocalStorage(authService)
+    //   },
+    //   deps: [AuthService]
+    // },
+    // { provide: 'SITE_REMOTE_STORAGE', 
+    //   useFactory: (http: HttpClient) => {
+    //     return new SiteRemoteStorage(http)
+    //   },
+    //   deps: [HttpClient]
+    // },
+    // { provide: 'WORKER_REMOTE_STORAGE', 
+    //   useFactory: (http: HttpClient) => {
+    //     return new WorkerRemoteStorage(http)
+    //   },
+    //   deps: [HttpClient]
+    // }
   ],
   bootstrap: [AppComponent],
 })
