@@ -6,6 +6,11 @@
     <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 </div>
 
-<app-site-list [sites]="sites"></app-site-list>
+<div *ngFor="let site of sites">
+    <mat-card class="mt-2">
+        <div>{{site.name}}</div>
+        <div class="text-muted">{{site.address}}</div>
+    </mat-card>
+</div>
 
 <app-new-site-form #form></app-new-site-form>

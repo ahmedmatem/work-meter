@@ -60,10 +60,6 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
   }
 
   save(){
-    this.isVisitedSiteListChanged = false
-    const visitedSiteIds = this.visitedSiteList.map(site => {
-      return site.id!
-    })
     this.workerRepo.updateWorkerSites(this.worker.id, this.visitedSiteList).subscribe({
       complete: () => {
         console.log('Worker sites was saved successfully.')
@@ -104,9 +100,13 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
         if(allSites){
           this.unvisitedSiteList = []
           for(let i = 0; i < allSites.length; i++){
-            let isVisited = this.visitedSiteList.some((site) => {
-              site.id === allSites[i].id
-            })
+            let isVisited = false
+            for(let j = 0; j < this.visitedSiteList?.length; j++){
+              if(this.visitedSiteList[j].id === allSites[i].id){
+                isVisited = true
+                break
+              }
+            }
             if(!isVisited){
               this.unvisitedSiteList.push(allSites[i])
             }

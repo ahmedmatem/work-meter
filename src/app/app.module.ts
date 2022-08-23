@@ -14,10 +14,8 @@ import { AdminHeaderComponent } from './admin/admin-header/admin-header.componen
 import { UserHeaderComponent } from './header/user-header/user-header.component'
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component'
-import { SiteListComponent } from './site-list/site-list.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AuthTokenHttpInterceptor } from './auth/auth-token.interceptor'
-import { SiteItemComponent } from './site-list/site-item/site-item.component'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { HomeComponent } from './home/home.component'
 import { MatCardModule } from '@angular/material/card'
@@ -30,11 +28,7 @@ import { AddWorkPageComponent } from './home/add-work-page/add-work-page.compone
 import { WorkFormComponent } from './work-form/work-form.component'
 import { CameraComponent } from './camera/camera.component'
 import { WebcamModule } from 'ngx-webcam'
-import { AuthService } from './auth/auth.service'
-import { SiteLocalStorage } from './data/site/site.local-storage'
-import { SiteRemoteStorage } from './data/site/site.remote-storage'
 import { WorkersTabComponent } from './admin/admin-home/workers-tab/workers-tab.component'
-import { WorkerRemoteStorage } from './data/worker/worker.remote-storage'
 import { WorkerSettingsComponent } from './admin/admin-home/workers-tab/worker-settings/worker-settings.component'
 
 @NgModule({
@@ -48,8 +42,6 @@ import { WorkerSettingsComponent } from './admin/admin-home/workers-tab/worker-s
     UserHeaderComponent,
     HeaderComponent,
     AdminHomeComponent,
-    SiteListComponent,
-    SiteItemComponent,
     WorkerSettingsComponent,
     HomeComponent,
     SitesTabComponent,
