@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@angular/core"
-import { Subject } from "rxjs"
+import { Observable, Subject } from "rxjs"
+import { Site } from "src/app/models/Site"
 import { Worker } from "src/app/models/Worker"
 import { WorkerLocalStorage } from "./worker.local-storage"
 import { WorkerRemoteStorage } from "./worker.remote-storage"
@@ -27,5 +28,13 @@ export class WorkerRepository {
                 this.localStorage.add(...workers)
             }
         })
+    }
+
+    downloadWorkerSites(workerId: string): Observable<Site[]>{
+        return this.remoteStorage.getWorkerSites(workerId)
+    }
+
+    updateWorkerSites(workerId: string, sites: Site[]): Observable<any>{
+        return this.remoteStorage.setWorkerSites(workerId, sites)
     }
 }

@@ -16,11 +16,11 @@ export class SiteLocalStorage {
     }
 
     /**
-     * Add site/s in local storage if required - 
+     * Save site/s in local storage if required - 
      * skip those that already exist in the storage.
      * @param sites
      */
-    add(...sites: Site[]){
+    save(...sites: Site[]){
         const storedSites: Site[] = this.getAll()
         
         // Filter sites that are not exist in local storage

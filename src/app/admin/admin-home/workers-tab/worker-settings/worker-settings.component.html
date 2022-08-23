@@ -26,7 +26,7 @@
         [cdkDropListData]="visitedSiteList"
         class="example-list mb-2"
         (cdkDropListDropped)="drop($event)">
-        <i *ngIf="visitedSiteList.length === 0" class="m-2">
+        <i *ngIf="visitedSiteList?.length === 0" class="m-2">
             Drag and drop here site from available list.</i>
         <div class="example-box bg-success text-light" *ngFor="let site of visitedSiteList" cdkDrag>
             {{site.name}}
@@ -39,12 +39,12 @@
   
       <div
         cdkDropList
-        [cdkDropListData]="availableSiteList"
+        [cdkDropListData]="unvisitedSiteList"
         class="example-list"
         (cdkDropListDropped)="drop($event)">
-        <i *ngIf="availableSiteList.length === 0" class="m-2">
+        <i *ngIf="unvisitedSiteList?.length === 0" class="m-2">
           Drag and drop here site to remove it from visited list.</i>
-        <div class="example-box bg-danger text-light" *ngFor="let site of availableSiteList" cdkDrag>
+        <div class="example-box bg-danger text-light" *ngFor="let site of unvisitedSiteList" cdkDrag>
             {{site.name}}
         </div>
       </div>

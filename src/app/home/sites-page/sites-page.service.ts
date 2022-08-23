@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core"
 import { BehaviorSubject, forkJoin, map, Observable } from "rxjs"
 import { Site } from "src/app/models/Site"
 import { Size, Work } from "src/app/models/Work"
-import { SiteService } from "src/app/site-list/site.service"
 // import { WorkerService } from "src/app/worker-list/worker.service"
 
 @Injectable({providedIn: 'root'})
@@ -12,7 +11,6 @@ export class SitesPageService{
     public workModel = new Work('', new Date(), '', new Size)
 
     constructor(
-        private siteService: SiteService,
         // private workerService: WorkerService
         ){ }
 

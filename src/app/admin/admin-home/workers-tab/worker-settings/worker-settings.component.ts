@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { forkJoin, Subscription } from 'rxjs'
 import { SiteRepository } from 'src/app/data/site/site-repository'
+import { WorkerRepository } from 'src/app/data/worker/worker-repository'
 import { Site } from 'src/app/models/Site'
 import { Worker } from 'src/app/models/Worker'
 
@@ -15,17 +16,16 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
   @Output() closeEvent = new EventEmitter<void>()
 
   isVisitedSiteListChanged = false
-  visitedSiteList: Site[] = []
-  /**
-   * availableSiteList property contains all sites excluded visited ones
-   */
-  availableSiteList: Site[] = []
   isLoading = false
+
+  visitedSiteList: Site[] = []
+  unvisitedSiteList: Site[] = []
   
   private forkSitesSub = new Subscription()
 
   constructor(
-    private siteRepo: SiteRepository
+    private siteRepo: SiteRepository,
+    private workerRepo: WorkerRepository
   ) { }
 
   ngOnInit(): void {    
@@ -64,8 +64,7 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
     const visitedSiteIds = this.visitedSiteList.map(site => {
       return site.id!
     })
-    this.siteRepo.setWorkerSites(this.worker.id, visitedSiteIds)
-    .subscribe({
+    this.workerRepo.updateWorkerSites(this.worker.id, this.visitedSiteList).subscribe({
       complete: () => {
         console.log('Worker sites was saved successfully.')
       }
@@ -92,23 +91,25 @@ export class WorkerSettingsComponent implements OnInit, OnDestroy {
 
   private separateSites(){
     this.isLoading = true
-    this.forkSitesSub = forkJoin([
-      this.siteRepo.downloadSitesAsObservable(), // request all sites
-      this.siteRepo.downloadWorkerSitesAsObservable(this.worker.id) // request worker site's ids
-    ]).subscribe({
+
+    const sources = [
+      this.siteRepo.download(), // request all sites
+      this.workerRepo.downloadWorkerSites(this.worker.id) // request worker sites
+    ]
+
+    this.forkSitesSub = forkJoin(sources).subscribe({
       next: (resData) => {
         const allSites = resData[0]
-        const workerSiteIds = resData[1]
+        this.visitedSiteList = resData[1] ? resData[1] : [] // worker sites
         if(allSites){
-          if(workerSiteIds){
-            this.availableSiteList = allSites.filter(site => {
-              return !workerSiteIds.includes(site.id!)
+          this.unvisitedSiteList = []
+          for(let i = 0; i < allSites.length; i++){
+            let isVisited = this.visitedSiteList.some((site) => {
+              site.id === allSites[i].id
             })
-            this.visitedSiteList = allSites.filter(site => {
-              return workerSiteIds.includes(site.id!)
-            })
-          } else {
-            this.availableSiteList = allSites
+            if(!isVisited){
+              this.unvisitedSiteList.push(allSites[i])
+            }
           }
         }
       },
