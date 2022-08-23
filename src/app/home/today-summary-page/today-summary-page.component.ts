@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Site } from 'src/app/models/Site';
-import { SiteService } from 'src/app/site-list/site.service';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { Site } from 'src/app/models/Site'
+import { HomeService } from '../home.service'
 
 @Component({
   selector: 'app-today-summary',
@@ -9,20 +9,11 @@ import { SiteService } from 'src/app/site-list/site.service';
   styleUrls: ['./today-summary-page.component.css']
 })
 export class TodaySummaryPageComponent implements OnInit {
-  private _site: Site | null
+  site: Site | undefined
 
   constructor(
-    private siteService: SiteService,
-    private router: Router) { 
-    this._site = this.siteService.selectedSite.getValue()
-    if(!this._site){
-      this.router.navigateByUrl('home/sites')
-    }
-  }
-
-  get site(): Site{
-    return this._site!
-  }
+    private homeService: HomeService,
+    private router: Router) { }
 
   showAddWorkPage(){
     this.router.navigateByUrl('home/add-work')
@@ -33,6 +24,11 @@ export class TodaySummaryPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!this.homeService.selectedSite.value){
+      this.router.navigateByUrl('home/sites')
+    }
+    
+    this.site = this.homeService.selectedSite.value!
   }
 
 }

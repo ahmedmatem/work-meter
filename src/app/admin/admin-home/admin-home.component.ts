@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { Site } from 'src/app/models/Site'
-import { SiteService } from 'src/app/site-list/site.service'
 
 @Component({
   selector: 'app-admin-home',
@@ -13,9 +12,7 @@ export class AdminHomeComponent implements OnInit {
 
   private siteListSub = new Subscription()
 
-  constructor(
-    private siteService: SiteService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

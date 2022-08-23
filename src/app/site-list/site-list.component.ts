@@ -1,9 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core'
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Subscription } from 'rxjs'
-import { SiteRepository } from '../data/site/site-repository'
 import { Site } from '../models/Site'
-import { SiteService } from './site.service'
 
 @Component({
   selector: 'app-site-list',

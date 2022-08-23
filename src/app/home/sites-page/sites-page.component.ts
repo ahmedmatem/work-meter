@@ -28,8 +28,8 @@ export class SitesPageComponent implements OnInit {
   }
 
   showDaylySummaryFor(site: Site){
-    // this.siteService.selectedSite.next(site)
-    // this.router.navigate(['home/dayly-summary'])
+    this.homeService.selectedSite.next(site)
+    this.router.navigate(['home/dayly-summary'])
   }
 
   ngOnDestroy(): void {

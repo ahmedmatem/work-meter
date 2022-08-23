@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { BehaviorSubject, Subject, Subscription } from "rxjs"
+import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs"
 import { AuthService } from "../auth/auth.service"
 import { SiteRepository } from "../data/site/site-repository"
 import { WorkerRepository } from "../data/worker/worker-repository"
@@ -10,10 +10,10 @@ import { Size, Work } from "../models/Work"
 export class HomeService {
     private _workerId: string
     private _workerSites: Site[] = []
-    private workerSitesSub = new Subscription()
 
-    siteListChangedSubject = new BehaviorSubject<Site[]>([])
-    public workModel = new Work('', new Date(), '', new Size)
+    siteListChangedSubject = new Subject<Site[]>()
+    selectedSite = new BehaviorSubject<Site|null>(null)
+    workModel = new Work('', new Date(), '', new Size)
 
     get workerSites() {
         return this._workerSites.slice()

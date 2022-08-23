@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Site } from 'src/app/models/Site';
-import { SiteService } from 'src/app/site-list/site.service';
+import { Component, Input, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { Site } from 'src/app/models/Site'
+import { HomeService } from '../home.service'
 
 @Component({
   selector: 'app-dayly-summary-page',
@@ -11,15 +11,11 @@ import { SiteService } from 'src/app/site-list/site.service';
 export class DaylySummaryPageComponent implements OnInit {
 today = new Date()
 
-  private _site: Site | null = null
+  site: Site | undefined
 
   constructor(
-    private siteService: SiteService,
+    private homeService: HomeService,
     private router: Router) { }
-
-  get site(): Site | null {
-    return this._site
-  }
 
   showTodaySummary(){
     this.router.navigateByUrl('home/today-summary')
@@ -30,10 +26,11 @@ today = new Date()
   }
 
   ngOnInit(): void {
-    this._site = this.siteService.selectedSite.getValue()
-    if(!this._site){
+    if(!this.homeService.selectedSite.value){
       this.router.navigate(['home/sites'])
     }
+
+    this.site = this.homeService.selectedSite.value!
   }
 
 }
